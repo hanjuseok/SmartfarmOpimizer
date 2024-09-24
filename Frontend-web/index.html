@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트팜 모니터링</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>스마트팜 모니터링</h1>
+        <div id="clock"></div>
+    </header>
+    <main>
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="controls">
+            <input type="number" id="timeInput" placeholder="시간 입력" />
+            <select id="timeUnit">
+                <option value="seconds">초</option>
+                <option value="minutes">분</option>
+                <option value="hours">시간</option>
+            </select>
+            <button onclick="setTimeRange()">시간 단위 설정</button>
+            <button onclick="setTemperature()">온도 조절</button>
+            <button onclick="setHumidity()">습도 조절</button>
+            <button onclick="setSoilMoisture()">토양 수분 조절</button>
+        </div>
+        <div class="data-analysis">
+            <h2>데이터 분석</h2>
+            <select id="periodSelect">
+                <option value="daily">일별</option>
+                <option value="weekly">주별</option>
+                <option value="monthly">월별</option>
+            </select>
+            <button onclick="fetchData()">데이터 조회</button>
+            <div class="analysis-chart">
+                <canvas id="analysisChart"></canvas>
+            </div>
+        </div>
+        <!-- HTML 코드 -->
+<div class="automation-controls">
+    <h2>알림 설정</h2>
+    <div>
+        <label for="humidityThreshold">토양 수분 임계값:</label>
+        <input type="number" id="humidityThreshold" placeholder="토양 수분 임계값" />
+    </div>
+    <div>
+        <label for="temperatureThreshold">온도 임계값:</label>
+        <input type="number" id="temperatureThreshold" placeholder="온도 임계값" />
+    </div>
+    <button onclick="setAutomationRules()">알림 설정</button>
+</div>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+
+ <!-- Google tag (gtag.js) -->
+ <script async src="https://www.googletagmanager.com/gtag/js?id=G-9LDQ2E07S4"></script>
+ <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+
+   gtag('config', 'G-9LDQ2E07S4');
+ </script>
