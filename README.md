@@ -1,6 +1,6 @@
 # smartfarm-Project
 ## 융합소프트웨어프로젝트
-1. 개요
+## 1. 개요
 
 ![3425_resized](https://github.com/user-attachments/assets/5a7e7de4-3dc7-4d8b-bacb-ddf3f9bbf003)
 
