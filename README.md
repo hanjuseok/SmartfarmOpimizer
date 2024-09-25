@@ -2,8 +2,7 @@
 ## 융합소프트웨어프로젝트
 1. 개요
 
-![3425](https://github.com/user-attachments/assets/840d7913-d6d0-43bc-9a46-78ca1ce363fc)
-
+![3425_resized](https://github.com/user-attachments/assets/5a7e7de4-3dc7-4d8b-bacb-ddf3f9bbf003)
 
 ## 2. 팀원 소개
 
