@@ -5,6 +5,16 @@
 ![3425](https://github.com/user-attachments/assets/840d7913-d6d0-43bc-9a46-78ca1ce363fc)
 
 
+## 2. 팀원 소개
+
+| 역할 | 이름 | GitHub | 담당 |
+|:---:|:---:|:---:|:---:|
+| 😈 FE | 은혜연 | [🔗 GitHub](https://github.com/username1) | 팀장, 기록 담당 |
+| 🐯 FE | 김주열 | [🔗 GitHub](https://github.com/username2) | 피그마 담당 |
+| 🤖 FE | 안현수 | [🔗 GitHub](https://github.com/username3) | 개발 담당 |
+| 🐶 FE | 김은하 | [🔗 GitHub](https://github.com/username4) | CRUD 담당 |
+
+
 📦 smartfarm  
  ┣ 📂 src  
  ┣ 📜 README.md  
