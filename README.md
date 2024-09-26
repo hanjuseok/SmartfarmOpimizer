@@ -8,8 +8,8 @@
 
 | 역할 | 이름 | GitHub | 담당 |
 |:---:|:---:|:---:|:---:|
-| 😈 FE | 이재원 | [🔗 GitHub](https://github.com/username1) | ~ 담당 |
-| 🐯 BE | 오승환 | [🔗 GitHub](https://github.com/username2) | ~ 담당 |
+| 😈 FE | 이재원 | [🔗 GitHub](https://github.com/coogie22) | ~ 담당 |
+| 🐯 BE | 오승환 | [🔗 GitHub](https://github.com/tmdghks00) | ~ 담당 |
 | 🤖    | 이병규 | [🔗 GitHub](https://github.com/username3) | ~ 담당 |
 | 🐶    | 김주석 | [🔗 GitHub](https://github.com/username4) | ~ 담당 |
 
