@@ -9,13 +9,49 @@
 </head>
 <body>
     <header>
-        <h1>스마트팜 모니터링</h1>
-        <div id="clock"></div>
+        <div class="tree-container">
+            <div class="tree">
+                <div class="branch" style="--x:0">
+                    <span style="--i:0;"></span>
+                    <span style="--i:1;"></span>
+                    <span style="--i:2;"></span>
+                    <span style="--i:3;"></span>
+                </div>
+                <div class="branch" style="--x:1">
+                    <span style="--i:0;"></span>
+                    <span style="--i:1;"></span>
+                    <span style="--i:2;"></span>
+                    <span style="--i:3;"></span>
+                </div>
+                <div class="branch" style="--x:2">
+                    <span style="--i:0;"></span>
+                    <span style="--i:1;"></span>
+                    <span style="--i:2;"></span>
+                    <span style="--i:3;"></span>
+                </div>
+                <div class="branch" style="--x:3">
+                    <span style="--i:0;"></span>
+                    <span style="--i:1;"></span>
+                    <span style="--i:2;"></span>
+                    <span style="--i:3;"></span>
+                </div>
+                <div class="stem">
+                    <span style="--i:0;"></span>
+                    <span style="--i:1;"></span>
+                    <span style="--i:2;"></span>
+                    <span style="--i:3;"></span>
+                </div>
+                <span class="shadow"></span>
+            </div>
+        </div>
+        <h1 style="text-align: center; flex-grow: 1;">스마트팜 모니터링</h1>
+        <div id="clock" style="text-align: center;"></div>
     </header>
     <main>
         <div class="chart-container">
             <canvas id="myChart"></canvas>
         </div>
+        
         <div class="controls">
             <input type="number" id="timeInput" placeholder="시간 입력" />
             <select id="timeUnit">
@@ -40,31 +76,28 @@
                 <canvas id="analysisChart"></canvas>
             </div>
         </div>
-        <!-- HTML 코드 -->
-<div class="automation-controls">
-    <h2>알림 설정</h2>
-    <div>
-        <label for="humidityThreshold">토양 수분 임계값:</label>
-        <input type="number" id="humidityThreshold" placeholder="토양 수분 임계값" />
-    </div>
-    <div>
-        <label for="temperatureThreshold">온도 임계값:</label>
-        <input type="number" id="temperatureThreshold" placeholder="온도 임계값" />
-    </div>
-    <button onclick="setAutomationRules()">알림 설정</button>
-</div>
-
+        <div class="automation-controls">
+            <h2>알림 설정</h2>
+            <div>
+                <label for="humidityThreshold">토양 수분 임계값:</label>
+                <input type="number" id="humidityThreshold" placeholder="토양 수분 임계값" />
+            </div>
+            <div>
+                <label for="temperatureThreshold">온도 임계값:</label>
+                <input type="number" id="temperatureThreshold" placeholder="온도 임계값" />
+            </div>
+            <button onclick="setAutomationRules()">알림 설정</button>
+        </div>
     </main>
     <script src="script.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9LDQ2E07S4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-9LDQ2E07S4');
+    </script>
 </body>
 </html>
-
- <!-- Google tag (gtag.js) -->
- <script async src="https://www.googletagmanager.com/gtag/js?id=G-9LDQ2E07S4"></script>
- <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
-
-   gtag('config', 'G-9LDQ2E07S4');
- </script>
