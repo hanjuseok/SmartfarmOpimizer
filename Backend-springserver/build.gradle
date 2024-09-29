@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-auth:22.1.1' // 최신 버전 확인 필요
+    implementation 'com.intel.bluetooth:bluecove:2.1.1'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'com.google.firebase:firebase-admin:9.1.1' // 최신 버전 번호 확인
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
