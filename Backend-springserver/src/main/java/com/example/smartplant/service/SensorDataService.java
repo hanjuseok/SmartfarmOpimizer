@@ -84,4 +84,28 @@ public class SensorDataService { // Firebase와 연동하여 센서 데이터를
         }, Runnable::run);
         return completableFuture;
     }
+
+    // 특정 시간 범위의 데이터 조회
+    public CompletableFuture<List<SensorData>> getSensorDataInRange(long startTimestamp, long endTimestamp) {
+        CompletableFuture<List<SensorData>> future = new CompletableFuture<>();
+        databaseReference.orderByChild("timestamp").startAt(startTimestamp).endAt(endTimestamp)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<SensorData> sensorDataList = new ArrayList<>();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SensorData sensorData = snapshot.getValue(SensorData.class);
+                            sensorDataList.add(sensorData);
+                        }
+                        future.complete(sensorDataList);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        future.completeExceptionally(databaseError.toException());
+                    }
+                });
+        return future;
+    }
+
 }

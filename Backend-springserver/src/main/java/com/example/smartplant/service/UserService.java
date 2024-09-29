@@ -18,9 +18,9 @@ public class UserService { // 새로운 사용자 서비스
     public String loginUser(User user) {
         User storedUser = users.get(user.getEmail());
         if (storedUser != null && storedUser.getPassword().equals(user.getPassword())) {
-            return "Login successful";
+            return "로그인 성공";
         } else {
-            return "Invalid credentials";
+            return "잘못된 로그인 정보";
         }
     }
 }
