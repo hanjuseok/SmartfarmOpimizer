@@ -6,6 +6,7 @@
     <title>스마트팜 모니터링</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -64,6 +65,7 @@
             <button onclick="setHumidity()">습도 조절</button>
             <button onclick="setSoilMoisture()">토양 수분 조절</button>
         </div>
+        
         <div class="data-analysis">
             <h2>데이터 분석</h2>
             <select id="periodSelect">
@@ -76,6 +78,7 @@
                 <canvas id="analysisChart"></canvas>
             </div>
         </div>
+        
         <div class="automation-controls">
             <h2>알림 설정</h2>
             <div>
@@ -89,15 +92,5 @@
             <button onclick="setAutomationRules()">알림 설정</button>
         </div>
     </main>
-    <script src="script.js"></script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9LDQ2E07S4"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-9LDQ2E07S4');
-    </script>
 </body>
 </html>

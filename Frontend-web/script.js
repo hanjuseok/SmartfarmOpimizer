@@ -77,6 +77,7 @@ const analysisChart = new Chart(analysisCtx, {
 });
 
 let updateInterval = 1000; // 기본 업데이트 간격 (1초)
+let chartInterval;
 
 // 실시간 시계 업데이트
 function updateClock() {
@@ -106,10 +107,12 @@ function updateChart() {
 }
 
 // 주기적으로 시계와 차트 업데이트
-let chartInterval = setInterval(() => {
-    updateClock();
-    updateChart();
-}, updateInterval);
+function startUpdating() {
+    chartInterval = setInterval(() => {
+        updateClock();
+        updateChart();
+    }, updateInterval);
+}
 
 // 시간 범위 설정 함수
 function setTimeRange() {
@@ -132,103 +135,59 @@ function setTimeRange() {
         }
 
         updateInterval = intervalInSeconds * 1000; // 밀리초로 변환
-        clearInterval(chartInterval); // 이전 인터벌 제거
-        chartInterval = setInterval(() => {
-            updateClock();
-            updateChart();
-        }, updateInterval); // 새로운 간격으로 인터벌 설정
-
-        alert(`차트가 ${input} ${unit === 'seconds' ? '초' : unit === 'minutes' ? '분' : '시간'} 간격으로 업데이트됩니다.`);
+        clearInterval(chartInterval); // 기존의 인터벌을 클리어
+        startUpdating(); // 새로운 인터벌 시작
     }
 }
 
-// 온도, 습도 및 토양 수분 조절
-function setTemperature() {
-    const temperature = prompt('설정할 온도를 입력하세요 (예: 22):');
-    if (temperature !== null) {
-        alert(`온도가 ${temperature}로 설정되었습니다.`);
-    }
-}
-
-function setHumidity() {
-    const humidity = prompt('설정할 습도를 입력하세요 (예: 60):');
-    if (humidity !== null) {
-        alert(`습도가 ${humidity}로 설정되었습니다.`);
-    }
-}
-
-function setSoilMoisture() {
-    const moisture = prompt('설정할 토양 수분을 입력하세요 (예: 50):');
-    if (moisture !== null) {
-        alert(`토양 수분이 ${moisture}로 설정되었습니다.`);
-    }
-}
-
-// 데이터 요청 및 분석
-async function fetchData() {
+// 데이터 조회 함수
+function fetchData() {
     const period = document.getElementById('periodSelect').value;
+    const url = `http://localhost:3000/api/data?period=${period}`;
 
-    // 서버로부터 데이터 가져오기
-    try {
-        const response = await fetch(`/data?period=${period}`);
-        const data = await response.json();
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            // 여기에 데이터 가공 및 차트 업데이트 로직 추가
+            // 예: analysisChart.data.datasets[0].data = data.temperature;
+            // analysisChart.update();
+        })
+        .catch(error => console.error('데이터 로드 오류:', error));
+}
 
-        // 분석 차트 업데이트
-        updateAnalysisChart(data);
-    } catch (error) {
-        console.error('데이터를 가져오는 중 오류 발생:', error);
+// 온도 조절 함수
+function setTemperature() {
+    const tempValue = prompt("설정할 온도를 입력하세요:");
+    if (tempValue) {
+        // 서버에 온도 설정 요청
     }
 }
 
-function updateAnalysisChart(data) {
-    // 분석 차트 데이터 업데이트
-    analysisChart.data.labels = data.labels;
-    analysisChart.data.datasets[0].data = data.temperature;
-    analysisChart.data.datasets[1].data = data.humidity;
-    analysisChart.data.datasets[2].data = data.soilMoisture;
-
-    analysisChart.update();
+// 습도 조절 함수
+function setHumidity() {
+    const humidityValue = prompt("설정할 습도를 입력하세요:");
+    if (humidityValue) {
+        // 서버에 습도 설정 요청
+    }
 }
 
-// 자동화 규칙 설정
-let automationRules = {
-    humidityThreshold: null,
-    temperatureThreshold: null
-};
+// 토양 수분 조절 함수
+function setSoilMoisture() {
+    const moistureValue = prompt("설정할 토양 수분을 입력하세요:");
+    if (moistureValue) {
+        // 서버에 토양 수분 설정 요청
+    }
+}
 
+// 자동화 규칙 설정 함수
 function setAutomationRules() {
-    const humidityThreshold = parseFloat(document.getElementById('humidityThreshold').value);
-    const temperatureThreshold = parseFloat(document.getElementById('temperatureThreshold').value);
+    const humidityThreshold = document.getElementById('humidityThreshold').value;
+    const temperatureThreshold = document.getElementById('temperatureThreshold').value;
 
-    automationRules.humidityThreshold = humidityThreshold || null;
-    automationRules.temperatureThreshold = temperatureThreshold || null;
-
-    alert('알림이 설정되었습니다.');
+    // 설정된 규칙을 서버에 요청
 }
 
-// 자동화 규칙을 기반으로 조치를 취하는 함수
-function checkAutomationRules(data) {
-    if (automationRules.humidityThreshold !== null && data.humidity[data.humidity.length - 1] < automationRules.humidityThreshold) {
-        // 예: 물 주기 요청
-        console.log('토양 수분이 임계값 이하로 떨어졌습니다. 물을 주어야 합니다.');
-        // 여기서 서버에 물 주기 요청을 보낼 수 있습니다.
-    }
-
-    if (automationRules.temperatureThreshold !== null && data.temperature[data.temperature.length - 1] > automationRules.temperatureThreshold) {
-        // 예: 환풍기 켜기 요청
-        console.log('온도가 임계값 이상으로 올라갔습니다. 환풍기를 켜야 합니다.');
-        // 여기서 서버에 환풍기 켜기 요청을 보낼 수 있습니다.
-    }
-}
-
-// 주기적으로 데이터 가져오기 및 자동화 규칙 체크
-async function fetchData() {
-    try {
-        const response = await fetch('/data');
-        const data = await response.json();
-        updateChart(data);
-        checkAutomationRules(data); // 자동화 규칙 체크
-    } catch (error) {
-        console.error('데이터를 가져오는 중 오류 발생:', error);
-    }
-}
+// 페이지 로드 후 업데이트 시작
+document.addEventListener('DOMContentLoaded', () => {
+    startUpdating();
+});
