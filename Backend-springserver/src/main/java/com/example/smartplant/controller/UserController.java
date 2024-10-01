@@ -12,13 +12,15 @@ public class UserController { // 새로운 사용자 관리 API
     @Autowired
     private UserService userService;
 
+    // 회원가입 API
     @PostMapping("/register")
-    public void registerUser(@RequestBody User user) {
-        userService.registerUser(user);
+    public String registerUser(@RequestBody User user) {
+        return userService.registerUser(user);
     }
 
+    // 로그인 API
     @PostMapping("/login")
     public String loginUser(@RequestBody User user) {
-        return userService.loginUser(user);
+        return userService.loginUserWithCredentials(user.getEmail(), user.getPassword());
     }
 }

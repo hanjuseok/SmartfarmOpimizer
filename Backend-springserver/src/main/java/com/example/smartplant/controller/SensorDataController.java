@@ -5,9 +5,7 @@ import com.example.smartplant.service.FirebaseMessagingService;
 import com.example.smartplant.service.SensorDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -15,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +29,6 @@ public class SensorDataController {
 
     @Autowired
     private FirebaseMessagingService firebaseMessagingService;
-
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate; // 웹소켓 메시징 템플릿
 
     // 모든 센서 데이터 조회
     @GetMapping
@@ -55,18 +51,10 @@ public class SensorDataController {
         sensorData.setTimestamp(System.currentTimeMillis());
         CompletableFuture<Void> result = sensorDataService.saveSensorData(sensorData);
 
-        // 수분 부족 시 Firebase 메시지 전송
+        // 토양 수분 부족 시 Firebase 메시지 전송
         if (sensorData.getSoilMoisture() < 30) {
             firebaseMessagingService.sendSoilMoistureAlert(sensorData);
         }
-
-        // 온도 임계값 초과 시 Firebase 메시지 전송
-        if (sensorData.getTemperature() > 30) { // 임계값은 필요에 따라 조정
-            firebaseMessagingService.sendTemperatureAlert(sensorData);
-        }
-
-        // 모든 클라이언트에게 최신 데이터 전송
-        messagingTemplate.convertAndSend("/topic/sensorData", sensorData);
 
         return result;
     }
@@ -87,9 +75,36 @@ public class SensorDataController {
 
     // Bluetooth로 센서 데이터 수신
     @PostMapping("/bluetooth")
-    public CompletableFuture<Void> receiveBluetoothData(@RequestBody SensorData sensorData) {
-        sensorData.setTimestamp(System.currentTimeMillis());
-        return sensorDataService.saveSensorData(sensorData);
+    public CompletableFuture<Void> receiveBluetoothData(@RequestBody String bluetoothData) { // Bluetooth 데이터 수신
+        try {
+            // 1. bluetoothData를 SensorData 객체로 변환 (파싱)
+            SensorData sensorData = parseBluetoothData(bluetoothData);
+            sensorData.setTimestamp(System.currentTimeMillis());
+
+            // 2. Firebase Realtime Database에 저장
+            return sensorDataService.saveSensorData(sensorData);
+        } catch (Exception e) {
+            // 예외 처리
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private SensorData parseBluetoothData(String bluetoothData) {
+        // TODO: Bluetooth 데이터 형식에 맞게 파싱 로직 구현
+        // 예시: bluetoothData가 "temperature:25.5,humidity:60.2,soilMoisture:45.7" 형식이라고 가정
+        String[] data = bluetoothData.split(",");
+        double temperature = Double.parseDouble(data[0].split(":")[1]);
+        double humidity = Double.parseDouble(data[1].split(":")[1]);
+        double soilMoisture = Double.parseDouble(data[2].split(":")[1]);
+        return new SensorData(null, temperature, humidity, soilMoisture, 0);
+    }
+
+    private boolean isValidSensorData(SensorData sensorData) {
+        // 센서 데이터 유효성 검증 로직 구현
+        // 예시: 온도, 습도, 토양 수분 값이 0 이상 100 이하인지 확인
+        return sensorData.getTemperature() >= 0 && sensorData.getTemperature() <= 100 &&
+                sensorData.getHumidity() >= 0 && sensorData.getHumidity() <= 100 &&
+                sensorData.getSoilMoisture() >= 0 && sensorData.getSoilMoisture() <= 100;
     }
 
     // 데이터 분석 (일별, 주별, 월별)
@@ -176,28 +191,4 @@ public class SensorDataController {
         return result;
     }
 
-    // 자동화 규칙 설정
-    private Map<String, Double> automationRules = new HashMap<>();
-
-    @MessageMapping("/automation/rules") // STOMP 메시지 처리
-    @SendTo("/topic/automation/status") // 결과를 사용자에게 전송
-    public Map<String, Double> setAutomationRules(Map<String, Double> rules) {
-        automationRules.putAll(rules);
-        return automationRules;
-    }
-
-    // 자동화 규칙을 기반으로 조치를 취하는 함수 (센서 데이터 추가 시 호출)
-    private void checkAutomationRules(SensorData data) {
-        if (automationRules.containsKey("humidityThreshold") && data.getHumidity() < automationRules.get("humidityThreshold")) {
-
-            System.out.println("토양 수분이 임계값 이하로 떨어졌습니다. 물을 주어야 합니다.");
-            // 여기서 필요한 작업 수행 (예: IoT 장치 제어, 외부 서비스 호출 등)
-        }
-
-        if (automationRules.containsKey("temperatureThreshold") && data.getTemperature() > automationRules.get("temperatureThreshold")) {
-
-            System.out.println("온도가 임계값 이상으로 올라갔습니다. 환풍기를 켜야 합니다.");
-            // 여기서 필요한 작업 수행 (예: IoT 장치 제어, 외부 서비스 호출 등)
-        }
-    }
 }

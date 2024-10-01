@@ -19,14 +19,16 @@ repositories {
 
 dependencies {
     implementation 'com.google.firebase:firebase-auth:22.1.1' // 최신 버전 확인 필요
-    implementation 'com.intel.bluetooth:bluecove:2.1.1'
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'com.google.firebase:firebase-admin:9.1.1' // 최신 버전 번호 확인
+    implementation 'com.intel.bluetooth:bluecove:2.1.1' // Bluetooth 통신 라이브러리
+    implementation 'com.google.firebase:firebase-admin:9.1.1' // Firebase Admin SDK 최신 버전
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2' // JWT 관련 의존성
 }
 
 tasks.named('test') {

@@ -21,16 +21,4 @@ public class FirebaseMessagingService { // Firebase 메시징 기능
         FirebaseMessaging.getInstance().sendAsync(message);
     }
 
-    // 온도 이상 시 알림을 전송하는 기능 추가
-    public void sendTemperatureAlert(SensorData sensorData) {
-        String messageBody = "온도가 " + sensorData.getTemperature() + "°C 로 너무 높습니다.";
-
-        Message message = Message.builder()
-                .putData("title", "온도 이상 알림")
-                .putData("body", messageBody)
-                .setTopic("alerts") // 동일한 토픽 사용 또는 필요에 따라 다른 토픽 설정 가능
-                .build();
-
-        FirebaseMessaging.getInstance().sendAsync(message);
-    }
 }
