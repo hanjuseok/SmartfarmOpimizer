@@ -189,3 +189,37 @@ h2 {
         width: calc(100% - 20px); /* 전체 너비에서 20px 줄이기 */
     }
 }
+
+/* 푸터 스타일 */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer {
+    background-color: #282c34;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.github-link {
+    color: #ffffff; /* 링크 색상 */
+    background-color: #007bff; /* 버튼 배경색 */
+    padding: 10px 15px; /* 여백 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    text-decoration: none; /* 기본 밑줄 제거 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 */
+}
+
+.github-link:hover {
+    background-color: #0056b3; /* 호버 시 배경색 변화 */
+}

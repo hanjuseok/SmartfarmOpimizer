@@ -191,3 +191,20 @@ function setAutomationRules() {
 document.addEventListener('DOMContentLoaded', () => {
     startUpdating();
 });
+
+window.onload = function() {
+    document.getElementById('loginModal').style.display = 'flex'; // 모달을 flex로 표시
+};
+
+// 모달 닫기 버튼 클릭 시 모달 숨기기
+document.getElementById('closeModal').onclick = function() {
+    document.getElementById('loginModal').style.display = 'none'; // 모달을 숨김
+};
+
+// 모달 외부 클릭 시 모달 닫기
+window.onclick = function(event) {
+    const modal = document.getElementById('loginModal');
+    if (event.target === modal) {
+        modal.style.display = 'none'; // 모달을 숨김
+    }
+};
