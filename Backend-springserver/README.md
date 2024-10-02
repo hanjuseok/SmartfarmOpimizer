@@ -1,7 +1,6 @@
-# 융합소프트웨어프로젝트 
-# smartfarm-Project 
-# Firebase 기반 실시간 센서 데이터 수집 및 사용자 알림 기능을 갖춘 Spring Boot 서버
+# 융합소프트웨어프로젝트- smartfarm-Project 
 
+# Firebase 기반 실시간 센서 데이터 수집 및 사용자 알림 기능을 갖춘 Spring Boot 서버
 # 주요 기능들 정리 =>
 
 1. 토양 수분이 부족하면 Firebase Cloud Messaging을 통해 사용자에게 알림 전송 ✅
