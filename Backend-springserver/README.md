@@ -1,19 +1,23 @@
-# 융합소프트웨어프로젝트 - 자바, 스프링으로 구축한 무선통신 서버
+# 융합소프트웨어프로젝트- smartfarm-Project 
 
+# Firebase 기반 실시간 센서 데이터 수집 및 사용자 알림 기능을 갖춘 Spring Boot 서버
 # 주요 기능들 정리 =>
 
-1. 토양 수분이 부족하면 Firebase Cloud Messaging을 통해 사용자에게 알림을 전송합니다. ✅
+1. 토양 수분이 부족하면 Firebase Cloud Messaging을 통해 사용자에게 알림 전송 ✅
 
 2. 사용자 등록 및 로그인 기능을 제공합니다.  Firebase Authentication 연동 및 
-REST API를 통한 회원가입/로그인 기능이 정상 작동합니다. ✅
+REST API를 통한 회원가입/로그인 기능  ✅
 
-3. REST API를 통해 센서 데이터에 대한 CRUD 작업을 처리하고, 사용자 정보에 대해서는 
-회원가입 및 로그인 기능을 제공합니다. ✅
+3. REST API를 통해 식물의 센서 데이터(온도, 습도, 토양 수분) 를 Firebase Realtime Database에 저장하고
+CRUD 작업을 처리 ✅
 
-4. Bluetooth를 통해 센서 데이터를 수신하고 저장할 수 있습니다. 구현 완료 ✅
-=> receiveBluetoothData 메서드에서 Bluetooth 데이터 수신 및 파싱, 저장 로직이 구현되었습니다.
+4. Bluetooth를 통해 센서 데이터를 수신하고  Firebase Realtime Database에 저장. ✅
+=> receiveBluetoothData 메서드에서 Bluetooth 데이터 수신 및 파싱, 저장 로직이 구현
 
 5. 특정 기간 동안의 센서 데이터 분석 기능 제공 (일별, 주별, 월별) ✅
+
+6. API 문서화: Swagger(OpenAPI)를 이용한 RESTful API 자동 문서화 기능 제공 ✅
+
 
 
 추가 고려사항 =>

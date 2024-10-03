@@ -21,7 +21,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/api/sensors")
+@RequestMapping("/api/sensors")  // API 엔드포인트
+@CrossOrigin(origins = "*") // 모든 origin 허용
 public class SensorDataController {
 
     @Autowired
@@ -37,7 +38,7 @@ public class SensorDataController {
     }
 
     // 특정 시간 범위의 센서 데이터 조회
-    @GetMapping("/range")
+    @GetMapping("/range")  // API 엔드포인트
     public CompletableFuture<List<SensorData>> getSensorDataInRange(
             @RequestParam("start") long startTimestamp,
             @RequestParam("end") long endTimestamp
@@ -60,7 +61,7 @@ public class SensorDataController {
     }
 
     // 센서 데이터 업데이트
-    @PutMapping("/{id}")
+    @PutMapping("/{id}")  // API 엔드포인트
     public CompletableFuture<Void> updateSensorData(@PathVariable String id, @RequestBody SensorData sensorData) {
         sensorData.setId(id);
         sensorData.setTimestamp(System.currentTimeMillis());
@@ -68,13 +69,13 @@ public class SensorDataController {
     }
 
     // 센서 데이터 삭제
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")  // API 엔드포인트
     public CompletableFuture<Void> deleteSensorData(@PathVariable String id) {
         return sensorDataService.deleteSensorData(id);
     }
 
     // Bluetooth로 센서 데이터 수신
-    @PostMapping("/bluetooth")
+    @PostMapping("/bluetooth")  // API 엔드포인트
     public CompletableFuture<Void> receiveBluetoothData(@RequestBody String bluetoothData) { // Bluetooth 데이터 수신
         try {
             // 1. bluetoothData를 SensorData 객체로 변환 (파싱)
@@ -108,7 +109,7 @@ public class SensorDataController {
     }
 
     // 데이터 분석 (일별, 주별, 월별)
-    @GetMapping("/analysis")
+    @GetMapping("/analysis")  // API 엔드포인트
     public ResponseEntity<Map<String, List<Double>>> getSensorDataAnalysis(
             @RequestParam("period") String period
     ) throws ExecutionException, InterruptedException {

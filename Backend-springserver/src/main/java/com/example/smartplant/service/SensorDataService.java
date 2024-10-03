@@ -19,6 +19,7 @@ public class SensorDataService { // Firebase와 연동하여 센서 데이터를
 
     private final DatabaseReference databaseReference;
 
+    // FirebaseApp을 주입받아 Firebase Realtime Database에 접근하는 DatabaseReference를 초기화합니다.
     public SensorDataService(FirebaseApp firebaseApp) {
         FirebaseDatabase database = FirebaseDatabase.getInstance(firebaseApp);
         databaseReference = database.getReference("sensorData");

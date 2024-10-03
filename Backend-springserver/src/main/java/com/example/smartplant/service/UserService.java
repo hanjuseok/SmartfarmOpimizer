@@ -13,7 +13,9 @@ import java.util.Map;
 
 @Service
 public class UserService {
-    private static final String FIREBASE_AUTH_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=YOUR_API_KEY";
+    private static final String FIREBASE_AUTH_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + System.getenv("FIREBASE_API_KEY");
+    // Firebase Authentication API 키를 보안을 위해 환경 변수를 설정
+    // 환경 변수를 사용하므로 서버 환경(데스크탑이나 노트북)마다 환경 변수를 설정해야함
 
     public String registerUser(User user) {
         try {
