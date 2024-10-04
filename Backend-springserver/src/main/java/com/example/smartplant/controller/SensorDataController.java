@@ -46,7 +46,7 @@ public class SensorDataController {
         return sensorDataService.getSensorDataInRange(startTimestamp, endTimestamp);
     }
 
-    // 센서 데이터 추가 및 실시간 업데이트
+    // 센서 데이터 추가
     @PostMapping
     public CompletableFuture<Void> addSensorData(@RequestBody SensorData sensorData) {
         sensorData.setTimestamp(System.currentTimeMillis());
@@ -116,13 +116,13 @@ public class SensorDataController {
         LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         LocalDateTime start = now;
         switch (period) {
-            case "daily":
+            case "daily": // 일별
                 start = now.minusDays(1);
                 break;
-            case "weekly":
+            case "weekly": // 주별
                 start = now.minusWeeks(1);
                 break;
-            case "monthly":
+            case "monthly": // 월별
                 start = now.minusMonths(1);
                 break;
         }

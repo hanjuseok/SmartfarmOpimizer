@@ -28,14 +28,14 @@ public class UserController { // 새로운 사용자 관리 API
             String token = userService.loginUserWithCredentials(user.getEmail(), user.getPassword());
             return ResponseEntity.ok(token); // 성공 시 토큰 반환
         } catch (IllegalArgumentException e) {
-            if (e.getMessage().contains("Email")) {
+            if (e.getMessage().contains("Email")) { // 사용자가 유효하지 않은 이메일 형식을 입력한 경우
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 이메일 형식입니다.");
-            } else if (e.getMessage().contains("Password")) {
+            } else if (e.getMessage().contains("Password")) { // 등록된 사용자의 이메일과 일치하지만 비밀번호가 틀린 경우
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호가 잘못되었습니다.");
-            } else {
+            } else { // 등록되지 않은 이메일로 로그인을 시도하는 경우
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인 정보가 올바르지 않습니다.");
             }
-        } catch (Exception e) {
+        } catch (Exception e) { // Firebase Authentication 서버와 통신 중 오류가 발생하는 경우
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
         }
     }

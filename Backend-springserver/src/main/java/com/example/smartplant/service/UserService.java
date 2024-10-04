@@ -17,7 +17,7 @@ public class UserService {
     // Firebase Authentication API 키를 보안을 위해 환경 변수를 설정
     // 환경 변수를 사용하므로 서버 환경(데스크탑이나 노트북)마다 환경 변수를 설정해야함
 
-    public String registerUser(User user) {
+    public String registerUser(User user) { // 새로운 사용자를 Firebase Authentication 에 등록
         try {
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                     .setEmail(user.getEmail())
@@ -29,7 +29,7 @@ public class UserService {
         }
     }
 
-    public String loginUserWithCredentials(String email, String password) {
+    public String loginUserWithCredentials(String email, String password) { // 사용자의 이메일과 비밀번호를 사용하여 Firebase Authentication 에 로그인하고 ID 토큰을 발급
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -59,7 +59,7 @@ public class UserService {
     }
 
     // ID 토큰 검증을 통한 로그인 처리 (기존 메서드)
-    public String loginUserWithToken(String idToken) {
+    public String loginUserWithToken(String idToken) { // 전달받은 ID 토큰을 검증하여 사용자를 인증
         try {
             var decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
             String uid = decodedToken.getUid();

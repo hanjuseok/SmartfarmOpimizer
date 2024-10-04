@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@Service // 데이터의 CRUD 작업 수행가능
+@Service // 센서 데이터의 CRUD 작업 수행가능
 public class SensorDataService { // Firebase와 연동하여 센서 데이터를 처리하는 서비스
 
     private final DatabaseReference databaseReference;
@@ -25,7 +25,7 @@ public class SensorDataService { // Firebase와 연동하여 센서 데이터를
         databaseReference = database.getReference("sensorData");
     }
 
-    // 데이터 저장(
+    // 센서 데이터 저장(
     public CompletableFuture<Void> saveSensorData(SensorData sensorData) {
         String key = databaseReference.push().getKey();
         if (key != null) {
@@ -36,7 +36,7 @@ public class SensorDataService { // Firebase와 연동하여 센서 데이터를
         return CompletableFuture.completedFuture(null);
     }
 
-    // 데이터 조회
+    // 센서 데이터 조회
     public CompletableFuture<List<SensorData>> getAllSensorData() {
         CompletableFuture<List<SensorData>> future = new CompletableFuture<>();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -58,7 +58,7 @@ public class SensorDataService { // Firebase와 연동하여 센서 데이터를
         return future;
     }
 
-    // 데이터 업데이트
+    // 센서 데이터 업데이트
     public CompletableFuture<Void> updateSensorData(SensorData sensorData) {
         if (sensorData.getId() != null) {
             ApiFuture<Void> apiFuture = databaseReference.child(sensorData.getId()).setValueAsync(sensorData);
@@ -67,7 +67,7 @@ public class SensorDataService { // Firebase와 연동하여 센서 데이터를
         return CompletableFuture.completedFuture(null);
     }
 
-    // 데이터 삭제
+    // 센서 데이터 삭제
     public CompletableFuture<Void> deleteSensorData(String id) {
         ApiFuture<Void> apiFuture = databaseReference.child(id).removeValueAsync();
         return toCompletableFuture(apiFuture);
@@ -86,7 +86,7 @@ public class SensorDataService { // Firebase와 연동하여 센서 데이터를
         return completableFuture;
     }
 
-    // 특정 시간 범위의 데이터 조회
+    // 특정 시간 범위의 센서 데이터 조회
     public CompletableFuture<List<SensorData>> getSensorDataInRange(long startTimestamp, long endTimestamp) {
         CompletableFuture<List<SensorData>> future = new CompletableFuture<>();
         databaseReference.orderByChild("timestamp").startAt(startTimestamp).endAt(endTimestamp)
