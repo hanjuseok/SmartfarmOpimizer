@@ -27,6 +27,7 @@
 ### 5.1 하드웨어
 
 ### 5.2 웹
+https://coogie22.github.io/smartfarm-Project/
 
 ## 6. 프로젝트 구조
 
