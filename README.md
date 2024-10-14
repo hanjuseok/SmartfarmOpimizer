@@ -26,8 +26,8 @@
 | :--: | :----: | :------------------------------------: | :----: |
 |  FE  | 이재원 | [🔗 GitHub](https://github.com/coogie22) | ~ 담당 |
 |  BE  | 오승환 | [🔗 GitHub](https://github.com/tmdghks00) | ~ 담당 |
-|      | 이병규 | [🔗 GitHub](https://github.com/username3) | ~ 담당 |
-|      | 김주석 | [🔗 GitHub](https://github.com/username4) | ~ 담당 |
+|      | 이병규 | [🔗 GitHub](https://github.com/lbg9310) | ~ 담당 |
+|      | 김주석 | [🔗 GitHub](https://github.com/hanjuseok) | ~ 담당 |
 
 ## 4. 개발 기간
 
