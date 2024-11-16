@@ -17,16 +17,19 @@ public class FirebaseConfig { // Firebase를 Spring Boot 애플리케이션에�
     public FirebaseApp firebaseApp() throws IOException {
         // FileInputStream 대신 ClassPathResource 사용 (파일 경로 문제 방지)
         ClassPathResource resource = new ClassPathResource("firebase-service-account.json");
-        InputStream serviceAccount = resource.getInputStream();
+        try (InputStream serviceAccount = resource.getInputStream()) {
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl(System.getenv("FIREBASE_DATABASE_URL"))
+                    .build();
 
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://" + "smartplant-9e659.firebaseio.com")
-                .build();
-
-        // FirebaseApp 이름을 명시적으로 "DEFAULT"로 지정
-        return FirebaseApp.initializeApp(options, "DEFAULT");
+            // FirebaseApp 이름을 명시적으로 "DEFAULT"로 지정, 이미 초기화된 경우 기존 인스턴스 반환
+            if (FirebaseApp.getApps().isEmpty()) {
+                return FirebaseApp.initializeApp(options, "DEFAULT");
+            } else {
+                return FirebaseApp.getInstance("DEFAULT");
+            }
+        }
     }
-
 
 }
